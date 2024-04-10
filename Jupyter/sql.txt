@@ -1,0 +1,67 @@
+Q1. Create tables
+Query : 
+create table Employee(Emp_id int primary key, Name varchar(10) not null, Designation varchar(20), Branch varchar(10), Age int not null, City varchar(10));
+
+create table Branch_details(Sr_no int primary key, b_name varchar(10) not null, branch_code varchar(20) not null, state varchar(10), Employee_id int references Employee(Emp_id));
+
+# To insert values in both 
+insert into Employee values (1, 'Krupesh', 'CEO', 'Real Estate', 21, 'Gnagar');
+
+insert into Branch_details(1, 'Computer', 'CE310', 'Gujarat', 1);
+
+// Aise hi 5 values daalni hai
+// values daalne ke baad commit jarur karna !
+
+# Queries to be executed !
+1. alter table Employee add (Salary int); // isse column add hoga
+2. alter table Branch_details rename column state to region; // isse state column ka naam change hoke region ho jayega ('' nahi daalna)
+3. delete from Employee where Emp_id = 3; // yeh ek row delete karega jiski id 3 hogi 
+4. select * from Employee where age < 20; // age 20 se kam hogi voh vali puri row print hogi
+5. update Employee set Name = 'Vivek' where Name = 'Krupesh'; // isse Krupesh ki jagah Vivek aa jayega
+6. commit; // isse save hoga table me value daalne ke baad ek bar commit kar dena 
+7. savepoint EMP; // jab dono table ban jaye tab ek baar yeh query fire kar dena
+8. rollback; // 3rd query ke baad Employee vale me bas 4 rows reh jaengi to do or row add karna fir rollback karna isliye yaha 5th and 6th row add karne ke baad likha hai
+9. select name from Employee where age between 21 and 25; // isme bracket nahi daalna
+10. select name from Employee where age in(20,22); // isme bracket jaruri hai
+
+
+
+
+Q2. Library table ( 3 row, 3 column)
+create table lib(id int not null primary key, name varchar(20), price int not null);
+
+insert into lib values(1, 'Book1', 250);
+insert into lib values(2, 'Book2', 550);
+insert into lib values(3, 'Book3', 630);
+// commit karna yaha !
+
+subquery :
+update lib set name = 'Book4' where id = (select id from lib where price = 630)
+// isme jiski price 630 hoga uski id milegi main query ko and fir Book3 ka naam change hoke Book4 ho jayega 
+
+
+
+
+Q3. Student table (3 rows, 3 columns)
+create table Student(id int not null primary key, name varchar(30), age int not null);
+
+insert into Student values (1, 'Krupesh', 21);
+insert into Student values (2, 'Ram', 19);
+insert into Student values (3, 'Sujal', 19);
+// commit karna yaha!
+
+Alter queries :
+alter table Student add (branch varchar(10));
+// isse branch naam ka column bhi add ho jayega
+
+alter table Student rename column id to s_id;
+// isse id ka naam change hoke s_id ho jayega
+
+alter table Student drop column branch;
+// isse table se branch column hat jayega
+
+alter table Student modify age varchar(5);
+// yaha age int se varchar me convert hoga but modify ke baad column aayega ya nahi yeh karke dekhna exam me kyunki dono sahi hai 
+
+
+ 
